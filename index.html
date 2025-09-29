@@ -16,17 +16,39 @@
       color-scheme: dark;
     }
     *{box-sizing:border-box;scroll-behavior:smooth}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:linear-gradient(180deg,var(--bg) 0%, #071027 100%);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      line-height:1.5;
-      padding:32px;
+    html,body{
+        height:100%;
+        min-height: 100%;
     }
-    .container{max-width:1100px;margin:0 auto}
+    body{
+        display: flex;
+        flex-direction: column;
+        margin:0;
+        font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+        background:linear-gradient(180deg,var(--muted) 0%, #071027 100%);
+        background-size: cover;
+        background-attachment: fixed;
+        color:#e6eef6;
+        -webkit-font-smoothing:antialiased;
+        line-height:1.5;
+        padding:32px;
+    }
+    .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: 1100px;
+        margin: 0 auto;
+        background: var(--bg); /* ajoute un fond */
+        border-radius: var(--radius);
+        padding: 32px;
+        background:linear-gradient(180deg,var(--bg) 0%, #071027 100%);
+        color:#e6eef6;
+    }
+
+    footer {
+        margin-top: auto;
+    }
 
     /* Header */
     header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:36px}
@@ -43,11 +65,11 @@
     .cta{display:inline-block;padding:12px 18px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#34d399);color:#022024;font-weight:700;text-decoration:none}
 
     /* Sections */
-    section{margin-bottom:56px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease, transform 0.6s ease}
+    section{margin-bottom:0px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease, transform 0.6s ease}
     section.visible{opacity:1;transform:translateY(0)}
 
     /* Education */
-    .course {
+    .categorie {
     margin-bottom: 16px;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.05);
@@ -56,7 +78,7 @@
     transition: background 0.3s;
     }
 
-    .course h3 {
+    .categorie h3 {
     margin: 0;
     font-size: 20px;
     font-weight: 700;
@@ -72,33 +94,109 @@
     margin-top: 4px;
     }
 
-    .course-details {
+    .categorie-details {
     display: none;
     color: var(--muted);
     margin-top: 12px;
     font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
     }
 
-    .course.active .course-details {
+    .categorie.active .categorie-details {
     display: block;
     }
 
-    .course .toggle {
+    .categorie .toggle {
     font-weight: bold;
     transition: transform 0.3s;
     }
 
-    .course.active .toggle {
+    .course-details.active {
+    display: block;
+    }
+
+    .course-details .toggle {
+    font-weight: bold;
+    transition: transform 0.3s;
+    }
+
+    .course-details.active .toggle {
     transform: rotate(180deg);
     }
 
+    .categorie-details {
+    display: none;
+    padding-left: 16px;
+    }
 
+    .categorie.active > .categorie-details {
+    display: block;
+    }
+
+    .course-details {
+    display: none;
+    padding-left: 16px;
+    }
+
+    .course.active > .course-details {
+    display: block;
+    }
+
+    .toggle {
+    float: right;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    }
+
+    .active > h3 .toggle,
+    .active > h4 .toggle {
+    transform: rotate(180deg);
+    }
+    
+    .toggle::after {
+    content: "+"; /* affichage par défaut */
+    display: inline-block;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    }
+
+    .categorie.active > h3 .toggle::after,
+    .course.active > h4 .toggle::after {
+    content: "-"; /* devient un moins */
+    font-weight: bold;
+    transform: rotate(180deg); /* pivot */
+    }
+
+    .see-more {
+    color: var(--accent); /* couleur différente */
+    font-weight: bold; 
+    text-decoration: underline;
+    transition: color 0.3s, transform 0.3s;
+    }
+
+    .see-more:hover {
+    color: #34d399; /* couleur différente au survol */
+    transform: scale(1.1); /* grossit légèrement */
+    }
+
+    ul li {
+    margin-bottom: 16px; /* espace entre les éléments */
+    line-height: 1.6;
+    }
+
+    ul li strong {
+    font-weight: bold;
+    }
+
+    
     footer{color:var(--muted);font-size:13px;text-align:center;padding:28px 0}
 
     /* Responsive */
     @media (max-width:980px){.hero{grid-template-columns:1fr;}}
     @media (max-width:640px){body{padding:18px}.hero .copy h1{font-size:28px}}
   </style>
+
 </head>
 <body>
   <div class="container">
@@ -137,53 +235,576 @@
 
       <section id="education">
         <h2>Education</h2>
-      
-        <div class="course">
+        
+        <div class="categorie">
+            <h3>
+              • Projects
+              <span class="toggle"></span>
+            </h3>
+            <div class="categorie-details">
+              
+              <div class="course">
+                  <h4>
+                      • Bachelor's Projects
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                    <ul>
+                        <li><strong>Propeller Launcher:</strong> The first group project consisted of designing a propeller launcher. The goal was to create a system capable of making a propeller fly to a precise height. This project provided hands-on experience in design, 3D modeling, and 3D printing, as well as developing a program to configure the launcher’s flight settings.</li>
+                      
+                        <li><strong>RFID Badge:</strong> The second project was more complex and took place during the COVID-19 pandemic. Due to restrictions, we adapted the project to focus on creating a glass detection system for an automatic beverage dispenser. This involved both hardware design and system integration challenges.</li>
+                      
+                        <li><strong>Computer Science Project:</strong> Rewrote a Python program in C to run on a Raspberry Pi, ensuring identical input/output behavior. Optimized performance by implementing multi-threading to utilize all four cores. Managed the project via GitLab with continuous integration and automated testing using CUnit, Valgrind, and cppcheck. Developed a Makefile to compile, test, and clean the project while ensuring full compatibility and strict coding standards.</li>
+                      
+                        <li><strong>Stability Analysis of a Bike:</strong> This project focused on analyzing the stability of a bicycle-pulled trailer, in collaboration with Bpost (cargo bike). Using Robotran software and C programming, we modeled the cyclist and the load, coded the trajectory, implemented the handlebar controller, and simulated tire-ground contact. The work also included designing and analyzing the rear suspension system to optimize performance and safety.</li>
+                      </ul>
+                  </div>
+              </div>
+  
+              <div class="course">
+                  <h4>
+                      • Mechanical Construction Project 
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                      <ul>
+                          <li> The first-year master group project consisted of developing a mechanical design for an automatic optical fiber spooling and coating machine intended for use in satellites.</li>
+                          <a href="MechanicalProject.html" class="see-more">See More</a>
+                      </ul>
+                  </div>
+              </div>
+  
+  
+              <div class="course">
+                  <h4>
+                      • Master Thesis
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                      <ul>
+                          <li>My master’s thesis, carried out in a team of two in collaboration with a company, consisted of the design and development of a test bench to accurately measure no-load losses in high-performance micro-motors operating at speeds up to 100,000 revolutions per minute.</li>
+                          <a href="MechanicalProject.html" class="see-more">See More</a>
+                      </ul>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Catégorie Mechanics -->
+        <div class="categorie">
           <h3>
-            <a href="mechanics.html" style="color:inherit; text-decoration:none;">• Mechanics</a>
-            <span class="toggle">+</span>
+            • Engineering & Simulation
+            <span class="toggle"></span>
           </h3>
-          <div class="course-description">Introduction aux principes fondamentaux de la mécanique appliquée.</div>
-          <div class="course-details">
-            <ul>
-              <li>Fluid Mechanics</li>
-              <li>Vehicle Dynamics</li>
-              <li>…</li>
-            </ul>
+          <div class="categorie-details">
+      
+            <!-- Sous-catégorie Fluid Mechanics -->
+            <div class="course">
+                <h4>
+                    • Advanced Manufacturing Technologies
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>Blablabla Piloulou</li>
+                        <a href="advancedmanu.html" class="see-more">See More</a>
+                    </ul>
+                </div>
+            </div>
+      
+            <!-- Sous-catégorie Vehicles Dynamics -->
+            <div class="course">
+                <h4>
+                    • Biomechanics
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course">
+                <h4>
+                    • Continuum Mechanics
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>Blablabla Piloulou</li>
+                        <a href="fluidmechanics.html" class="see-more">See More</a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course">
+                <h4>
+                    • Fluid Mechanics
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Heat and Mass Transfer
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Industrial Automation
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Internal Combustion Engine
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Machine Design
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Mechanical Design in Biomedical Engineering
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Mechanical Manufacturing
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Mechanics of Composite Materials
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Mechanics of Materials
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Material Selection
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Multibody System Dynamics
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Solid Mechanics (Deformable Bodies)
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Thermodynamics and Energy
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Vehicle Dynamics
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Welding Science
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
           </div>
         </div>
       
-        <div class="course">
+        <!-- Autres catégories -->
+        <div class="categorie">
           <h3>
-            <a href="thermodynamics.html" style="color:inherit; text-decoration:none;">• Thermodynamics</a>
-            <span class="toggle">+</span>
+            • Computer Science & Data
+            <span class="toggle"></span>
           </h3>
-          <div class="course-description">Étude des échanges de chaleur et de l’énergie.</div>
-          <div class="course-details">
-            <ul>
-              <li>Heat Exchange</li>
-              <li>…</li>
-            </ul>
+          <div class="categorie-details">
+            <div class="course">
+                <h4>
+                    • Algorithms and Data Structures
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Artificial Intelligence
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Concepts, Paradigms, and Semantics
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Computability and Complexity
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Computer Networks
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Computer Science 1 & 2
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Computer Systems
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Discrete Mathematics and Probability
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Numerical Methods
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course">
+                <h4>
+                    • Statistics and Data Science
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
           </div>
         </div>
       
-        <div class="course">
+        <div class="categorie">
           <h3>
-            <a href="computer-sciences.html" style="color:inherit; text-decoration:none;">• Computer Sciences</a>
-            <span class="toggle">+</span>
+            • Management & Professional Context
+            <span class="toggle"></span>
           </h3>
-          <div class="course-description">Notions de base en informatique, réseaux et algorithmes.</div>
-          <div class="course-details">
-            <ul>
-              <li>Network</li>
-              <li>Algorithmics & Data Structure</li>
-              <li>…</li>
-            </ul>
+          <div class="categorie-details">
+            
+            <div class="course">
+                <h4>
+                    • Financial Performance Indicators
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course">
+                <h4>
+                    • Introduction to Business Issues 
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="course">
+                <h4>
+                    • Law, Regulation and Legal Context
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course">
+                <h4>
+                    • Major Technological Risks in Industry  
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course">
+                <h4>
+                    • People Management
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course">
+                <h4>
+                    • Quality Management and Control
+                    <span class="toggle"></span>
+                </h4>
+                <div class="course-details">
+                    <ul>
+                        <li>BlablaBla</li>
+                    </ul>
+                </div>
+            </div>
+
           </div>
         </div>
+
+        <div class="categorie">
+            <h3>
+              • Mathematics & Modeling
+              <span class="toggle"></span>
+            </h3>
+            <div class="categorie-details">
+              
+              <div class="course">
+                  <h4>
+                      • Algebra
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                      <ul>
+                          <li>BlablaBla</li>
+                      </ul>
+                  </div>
+              </div>
+  
+              <div class="course">
+                  <h4>
+                      • Calculus I & II 
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                      <ul>
+                          <li>BlablaBla</li>
+                      </ul>
+                  </div>
+              </div>
+  
+  
+              <div class="course">
+                  <h4>
+                      • Differential Equations & Complex Analysis
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                      <ul>
+                          <li>BlablaBla</li>
+                      </ul>
+                  </div>
+              </div>
+  
+              <div class="course">
+                  <h4>
+                      • Finite Elements
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                      <ul>
+                          <li>BlablaBla</li>
+                      </ul>
+                  </div>
+              </div>
+  
+              <div class="course">
+                  <h4>
+                      •Signals and Systems
+                      <span class="toggle"></span>
+                  </h4>
+                  <div class="course-details">
+                      <ul>
+                          <li>BlablaBla</li>
+                      </ul>
+                  </div>
+              </div>
+  
+            </div>
+          </div>
       </section>
-      
-      
 
       <section id="contact">
         <h2>Contact</h2>
@@ -222,13 +843,22 @@
     });
 
     // Education accordion
-    document.querySelectorAll('.course').forEach(c=>{
-        c.addEventListener('click', ()=>{
-            c.classList.toggle('active');
-            const toggle = c.querySelector('.toggle');
-            toggle.textContent = c.classList.contains('active') ? '-' : '+';
+    document.querySelectorAll('.categorie > h3').forEach(header => {
+    header.addEventListener('click', () => {
+            const category = header.parentElement;
+            category.classList.toggle('active');
         });
     });
+
+    // Cours
+    document.querySelectorAll('.course > h4').forEach(header => {
+    header.addEventListener('click', (e) => {
+            e.stopPropagation(); // évite de fermer la catégorie parent
+            const course = header.parentElement;
+            course.classList.toggle('active');
+        });
+    });
+
 
 
     updateSkills();
