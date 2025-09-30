@@ -20,6 +20,21 @@
         height:100%;
         min-height: 100%;
     }
+    .anim-container.overlay {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--site-bg);
+        pointer-events: none; /* optionnel : laisse les clics passer au contenu en dessous */
+    }
+    .anim-video {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+        background: transparent;
+    }
     body{
         display: flex;
         flex-direction: column;
@@ -223,9 +238,19 @@
           <p>Drawn to automotive and aerospace from an early age, mechanical engineering quickly became an obvious path. Now, with my Master’s degree in Mechanical Engineering, I am ready to turn this passion into reality through ambitious projects.</p>
           <a class="cta" href="#projects">See my projects</a>
         </div>
-        <div class="card">
-          <model-viewer src="MAP.glb" alt="3D model" exposure="1" camera-controls auto-rotate shadow-intensity="1"></model-viewer>
-        </div>
+        <div class="anim-container overlay" aria-label="Animation 3D transparente">
+            <video
+              class="anim-video"
+              autoplay
+              loop
+              muted
+              playsinline
+              style="background: transparent;"
+            >
+              <!-- WebM avec alpha -->
+              <source src="0000-0240.webm" type="video/webm; codecs=vp9">
+            </video>
+          </div>
       </section>
 
       <section id="about">
