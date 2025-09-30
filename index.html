@@ -83,6 +83,89 @@
     .hero p{color:var(--muted);margin:0 0 22px 0}
     .cta{display:inline-block;padding:12px 18px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#34d399);color:#022024;font-weight:700;text-decoration:none}
 
+    /* Photo dans le header */
+    .profile-pic {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    }
+
+    .profile-pic:hover {
+    transform: scale(1.1);
+    }
+
+    /* Lightbox (agrandissement) */
+    .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+    }
+
+    .lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+    }
+
+    .lightbox-content {
+    background: #0f1724;
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;              /* ✅ image + texte côte à côte */
+    flex-direction: row;
+    align-items: center;        /* centre verticalement */
+    gap: 24px;                  /* espace entre l'image et le texte */
+    max-width: 800px;
+    width: 90%;
+    color: #fff;
+    }
+
+    .lightbox-content img {
+    width: 300px;
+    height: 300px;
+    border-radius: 14px;
+    object-fit: cover;
+    }
+
+    .lightbox-text {
+    display: flex;
+    flex-direction: column;     /* ✅ texte en colonne */
+    gap: 8px;
+    }
+
+    .lightbox-text h1 {
+    margin: 0;
+    font-size: 20px;
+    }
+
+    .lightbox-text h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #9aa6b2; /* gris clair comme ton thème */
+    }
+
+
+    .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    }
+
     /* Sections */
     section{margin-bottom:0px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease, transform 0.6s ease}
     section.visible{opacity:1;transform:translateY(0)}
@@ -217,11 +300,23 @@
   </style>
 
 </head>
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+        <img src="avatar.png" alt="François Vansnick">
+        <div class="lightbox-text">
+            <h1>yep, that's me or rather an avatar of me</h1>
+            <h2>ok I admit, this one comes from ChatGPT</h2>
+        </div>
+        </div>
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+    </div>
 <body>
   
     <header>
       <div class="brand">
-        <div class="logo">FV</div>
+        <div class="logo">
+            <img src="avatar.png" alt="François Vansnick" class="profile-pic" />
+          </div>
         <div>
           <div style="font-weight:700">François Vansnick</div>
           <div class="muted" style="font-size:13px">Mechanical civil engineer</div>
@@ -243,7 +338,7 @@
           
           <p>Some features are not yet available, but they will be coming soon. <br>
             In the meantime, feel free to share your suggestions through the “Contact” section.</p>
-          <a class="cta" href="#projects">See my projects</a>
+            <a class="cta" href="FrancoisVansnickGenericResumeV3.pdf" download="FrancoisVansnickResume.Pdf">Download my CV</a>
         </div>
         <div class="anim-container overlay" aria-label="Animation 3D transparente">
             <video
@@ -355,7 +450,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course provided an understanding of how structure, function, and performance are connected in biomechanical systems, with a focus on musculoskeletal and cardiovascular systems. I gained experience in experimental characterization and computational modeling, including the use of finite element simulations to address biomedical problems.</li>
+                        <a href="biomeca.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -367,20 +463,21 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>Blablabla Piloulou</li>
-                        <a href="fluidmechanics.html" class="see-more">See More</a>
+                        <li>This course provided a strong foundation in continuum mechanics, spanning kinematics, dynamics, and thermodynamics of solids and fluids. Key topics included conservation laws, thermoelasticity, the Navier–Stokes equations, as well as wave propagation and flow phenomena. Emphasis was placed on the mathematical and physical modeling of complex mechanical problems.</li>
+                        <!--<a href="continuousmeca.html" class="see-more">See More</a>-->
                     </ul>
                 </div>
             </div>
 
             <div class="course">
                 <h4>
-                    • Fluid Mechanics
+                    • Fluid Mechanics (I & II)
                     <span class="toggle"></span>
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>These courses provided a comprehensive foundation in fluid mechanics, covering incompressible and compressible flows, turbulence, and heat transfer. I gained strong knowledge of the Navier–Stokes equations, boundary layers, laminar and turbulent regimes, as well as computational modeling of flows using CFD (RANS and turbulence models). The courses also explored compressible flow phenomena, flow around airfoils, and applications to environmental and geophysical contexts, bridging theory, simulation, and real-world case studies.</li>
+                        <a href="fluidmeca.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -392,7 +489,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course strengthened my understanding of heat and mass transfer phenomena (conduction, convection, radiation, diffusion) and their interaction in complex systems. I developed skills in setting up thermal and mass balances, applying analytical solutions and correlations in simple geometries, and considering numerical tools for advanced cases, with a focus on designing and analyzing heat exchangers.</li>
+                        <a href="heatMass.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -404,7 +502,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This introductory course in industrial automation provided me with a solid understanding of sensors, actuators (pneumatic and electropneumatic), Programmable Logic Controllers (PLCs), and industrial robotic systems. I gained skills in sequential programming with Siemens PLCs, geometric modeling of industrial robots, and trajectory planning, with hands-on experience on didactic benches, an industrial conveyor, and a real industrial robot.</li>
+                        <a href="industrialauto.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -416,7 +515,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course provided a comprehensive understanding of mechanical and thermodynamic principles applied to energy systems, including kinematic chains, thermodynamic cycles, and energy fluxes. I studied engine breathing mechanisms, friction phenomena, fuel properties, combustion processes, and performance optimization, including supercharging technologies and pollution control strategies.</li>
+                        <a href="internalcombustion.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -428,7 +528,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course provided essential knowledge in mechanical design, covering functional analysis, sizing, and component selection for machines. I learned to write functional specifications, estimate energy performance, design simple mechanical systems, integrate sustainability criteria, and apply sizing methods. The course also included technical drawing interpretation, tolerance specification, risk analysis, and the integration of digital manufacturing technologies.</li>
+                        <a href="machinedesign.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -440,7 +541,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course combined design methodology with practical experimentation, covering topics such as certification, biocompatibility, and risk analysis. In a group setting, I contributed to designing an innovative medical device addressing a specific clinical challenge in collaboration with healthcare professionals or industry partners. The project was developed using Matrix Requirements software and presented at the end of the semester.</li>
+                        <a href="mechabioenge.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -452,7 +554,7 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course provided solid foundations in solid mechanics and materials science, including the understanding of deformation, stress, constitutive laws, and failure mechanisms. I studied the mechanical strength of metals, shaping processes (casting, machining, forging, extrusion, rolling), metal joining techniques (welding, bonding), surface treatments and coatings, polymer forming processes, and advanced manufacturing methods such as powder metallurgy and additive manufacturing.</li>
                     </ul>
                 </div>
             </div>
@@ -464,7 +566,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course provided foundational knowledge for the analysis and design of composite material structures, especially fiber-reinforced composites widely used in aerospace, automotive, and sports industries. I studied composite types, properties, forming processes, anisotropic elasticity, laminate theory, and multiscale homogenization methods. The course also covered damage models and failure criteria at both the ply and laminate levels, including interlaminar stresses and edge effects.</li>
+                        <a href="mecacompo.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -476,7 +579,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course explored strategies for selecting materials tailored to specific mechanical performance goals. It introduced advanced topics such as linear thermoelasticity, including phase partitioning in composites and cellular materials, as well as polymer viscoelasticity and plasticity—covering isotropic yield surfaces, elastic springback, residual stresses, and cyclic loading. Additional studies addressed material behavior under large strains, linear elastic fracture mechanics, and fatigue analysis, emphasizing factors that influence component durability and life expectancy.</li>
+                        <a href="mecamaterial.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -488,7 +592,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course introduces the design process with a focus on material selection. It covers the use of material property charts, fundamentals of material choice, and strategies for addressing over-constrained problems and multiple objectives. Shape factors and hybrid material design are discussed, along with criteria for selecting forming processes. The course also integrates eco-design principles to support sustainable material selection and innovation.</li>
+                        <a href="materialselection.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -500,7 +605,8 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course covers the definition and classification of multibody systems (MBS) and introduces the main characteristics of computational tools for modelling and analysis. It explores formalisms for tree-like systems (e.g., serial robots) and closed-loop mechanisms (e.g., vehicles), including the definition of barycentric quantities and automatic generation of dynamical equations using Lagrange multipliers, the virtual power principle, and the Newton–Euler recursive algorithm. The course also addresses the coordinate partitioning method and numerical analysis techniques such as equilibrium, modal analysis, time simulation, and inverse dynamics. Practical applications include serial and parallel robots, road and railway vehicles, and multibody systems with flexible elements. Students complete a project involving the modelling and analysis of a multibody system or the review and synthesis of scientific publications.</li>
+                        <a href="multibody.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -512,7 +618,7 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course covers the fundamentals of deformable solid mechanics, work and energy theorems, beam theory, stability and buckling, vibrations of single and multi-degree-of-freedom systems, and vibrations of continuous elastic beams, with both theoretical and practical applications.</li>
                     </ul>
                 </div>
             </div>
@@ -524,7 +630,7 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course introduces the fundamentals of technical thermodynamics, covering energy transformations, gas and vapor thermodynamics, humid air properties, combustion, gas turbines, steam power plants, and refrigeration cycles, with practical exercises to apply theoretical concepts.</li>
                     </ul>
                 </div>
             </div>
@@ -536,19 +642,21 @@
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course covers the fundamentals of vehicle dynamics for railway and road vehicles, including kinematics, multibody modeling, suspension systems, stability analysis, and vibration. It introduces simplified and detailed models, their practical use, and interpretation, with case studies on various vehicle types and industrial seminars.</li>
+                        <a href="vehicledyn.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
             
             <div class="course">
                 <h4>
-                    • Welding Science
+                    • Welding Science and Technology
                     <span class="toggle"></span>
                 </h4>
                 <div class="course-details">
                     <ul>
-                        <li>BlablaBla</li>
+                        <li>This course addresses welding technologies, including gas, arc, resistance, laser, electron beam, and solid-state welding. It covers heat input effects, weld heat flow modeling, mechanical properties, residual stresses, melt pool fluid flow, gaseous reactions, heat-affected zone evolution, and causes and solutions for weld cracking.</li>
+                        <a href="welding.html" class="see-more">See More</a>
                     </ul>
                 </div>
             </div>
@@ -911,7 +1019,23 @@
         });
     });
 
+    const profilePic = document.querySelector('.profile-pic');
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.getElementById('lightbox-close');
 
+    profilePic.addEventListener('click', () => {
+    lightbox.classList.add('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    });
+
+    lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+    }
+    });
 
     updateSkills();
   </script>
