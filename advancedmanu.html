@@ -283,18 +283,33 @@
     transition: color 0.3s, transform 0.3s;
     }
     .model-container {
-      margin-top:40px;
-      display:flex;
-      justify-content:center;
-    }
-    model-viewer {
-      width: 100%;
-      max-width: 600px;
-      aspect-ratio: 4 / 3; /* adapte la hauteur automatiquement */
-      border-radius: var(--radius);
-      background: transparent;
-    }
+  display: flex;
+  justify-content: center;     /* centre horizontalement l’ensemble */
+  align-items: center;         /* aligne verticalement au centre */
+  gap: 24px;                   /* espace entre images et modèle */
+  margin-top: 40px;
+  flex-wrap: wrap;             /* responsive : empile si trop petit */
+}
 
+.image-row {
+  display: flex;
+  flex-direction: row;         /* place les images côte à côte */
+  gap: 16px;
+}
+
+.image-row img {
+  height: 300px;               /* fixe une hauteur identique aux 3 éléments */
+         /* garde la proportion */
+  object-fit: cover;           /* rogne pour remplir proprement */
+  border-radius: 14px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+}
+
+.model-container model-viewer {
+  height: 300px;               /* même hauteur que les images */
+  width: auto;                 /* largeur auto pour garder les proportions */
+  border-radius: 14px;
+}
     a.go-home {
       display:inline-block;
       padding:14px 28px;
@@ -376,15 +391,21 @@
 
 We modeled the bottle opener in SolidWorks and went through several iterations, applying topological optimization to improve performance and material efficiency. Once the design was finalized, we 3D printed the bottle opener using SLM. After printing, we conducted a series of laboratory tests to verify that the final product met all the requirements outlined in the project specifications.</p>
 <div class="model-container">
-          <model-viewer
-            src="bottle_opener_v2.glb"
-            alt="3D model"
-            exposure="1" 
-            camera-controls 
-            auto-rotate 
-            shadow-intensity="1"
-            style="background-color: transparent;">
-          </model-viewer>      
+  <div class="image-row">
+    <img src="Stress.png" alt="Bottle opener view 1">
+    <img src="Topo.png" alt="Bottle opener view 2">
+  </div>
+
+  <model-viewer
+    src="bottle_opener_v2.glb"
+    alt="3D model"
+    exposure="1"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1"
+    style="background-color: transparent;">
+  </model-viewer>
+</div>
 </section>
       <div style="text-align:center; margin-top:40px;">
         <a href="index.html" class="go-home">Go back to Home</a>
