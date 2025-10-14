@@ -295,6 +295,20 @@
       background: transparent;
     }
 
+    .image-row {
+  display: flex;
+  flex-direction: row;         /* place les images côte à côte */
+  gap: 16px;
+}
+
+.image-row img {
+  height: 300px;               /* fixe une hauteur identique aux 3 éléments */
+  aspect-ratio: 4 / 3;         /* garde la proportion */
+  object-fit: cover;           /* rogne pour remplir proprement */
+  border-radius: 14px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+}
+
     a.go-home {
       display:inline-block;
       padding:14px 28px;
@@ -378,7 +392,7 @@ We modeled the bottle opener in SolidWorks and went through several iterations, 
 <div class="model-container">
   <div class="image-row">
     <img src="Stress.png" alt="Bottle opener view 1">
-    <img src="Topo.jpg" alt="Bottle opener view 2">
+    <img src="Topo.png" alt="Bottle opener view 2">
   </div>
 
   <model-viewer
