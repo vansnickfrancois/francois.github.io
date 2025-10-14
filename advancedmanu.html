@@ -282,6 +282,18 @@
     text-decoration: underline;
     transition: color 0.3s, transform 0.3s;
     }
+    .model-container {
+      margin-top:40px;
+      display:flex;
+      justify-content:center;
+    }
+    model-viewer {
+      width: 100%;
+      max-width: 600px;
+      aspect-ratio: 4 / 3; /* adapte la hauteur automatiquement */
+      border-radius: var(--radius);
+      background: transparent;
+    }
 
     a.go-home {
       display:inline-block;
