@@ -240,6 +240,51 @@
     display: none;
     padding-left: 16px;
     }
+    .project-row {
+  display: flex;
+  align-items: center;         /* ✅ aligne tout sur la même hauteur */
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 40px;
+  flex-wrap: wrap;             /* ✅ évite que ça déborde sur petits écrans */
+}
+
+.project-row .images {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.project-row .images img {
+  height: 300px;
+  width: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+}
+
+.project-row .text-side {
+  flex: 1;
+  max-width: 300px;
+  color: #e6eef6;
+  font-size: 14px;
+}
+
+.project-row .text-side ul {
+  margin: 8px 0 0 16px;
+  padding: 0;
+}
+
+.project-row .model {
+  flex-shrink: 0;
+}
+
+.project-row model-viewer {
+  width: 260px;
+  height: 200px;
+  border-radius: 14px;
+  background: transparent;
+}
 
     .course.active > .course-details {
     display: block;
@@ -389,20 +434,33 @@
 
 We modeled the bottle opener in SolidWorks and went through several iterations, applying topological optimization to improve performance and material efficiency. Once the design was finalized, we 3D printed the bottle opener using SLM. After printing, we conducted a series of laboratory tests to verify that the final product met all the requirements outlined in the project specifications.</p>
 <div class="model-container">
-  <div class="image-row">
+  <div class="project-row">
+  <div class="images">
     <img src="Stress.png" alt="Bottle opener view 1">
     <img src="Topo.png" alt="Bottle opener view 2">
   </div>
 
-  <model-viewer
-    src="bottle_opener_v2.glb"
-    alt="3D model"
-    exposure="1"
-    camera-controls
-    auto-rotate
-    shadow-intensity="1"
-    style="background-color: transparent;">
-  </model-viewer>
+  <div class="text-side">
+    <p><strong>Key points:</strong></p>
+    <ul>
+      <li>Design optimized for SLM additive manufacturing</li>
+      <li>Topology optimization to reduce weight</li>
+      <li>Validated through simulation and lab tests</li>
+    </ul>
+  </div>
+
+  <div class="model">
+    <model-viewer
+      src="bottle_opener_v2.glb"
+      alt="3D model"
+      exposure="1"
+      camera-controls
+      auto-rotate
+      shadow-intensity="1"
+      style="background-color: transparent;">
+    </model-viewer>
+  </div>
+</div>
 </div>
 </section>
       <div style="text-align:center; margin-top:40px;">
