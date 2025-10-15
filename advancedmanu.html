@@ -52,6 +52,63 @@
         line-height:1.5;
         padding:32px;
     }
+    .gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 420px; /* limite la largeur pour ne pas casser le layout */
+  margin-top: 12px;
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 4/3; /* carré */
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+
+/* Lightbox pour agrandir les images de la galerie */
+#img-lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#img-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#img-lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+#img-lightbox span {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
     .container {
         flex: 1;
         display: flex;
@@ -249,6 +306,7 @@
   flex-wrap: wrap;             /* ✅ évite que ça déborde sur petits écrans */
 }
 
+
 .project-row .images {
   display: flex;
   flex-direction: row;
@@ -430,27 +488,26 @@
             <h3>
               • Bottle Opener
             </h3>
-            <p> In this group project, we were tasked with designing and modeling a bottle opener while taking into account the technical constraints of the chosen manufacturing process, in our case, Selective Laser Melting (SLM). Our objectives were to minimize weight while maintaining optimal strength, and of course, to ensure the bottle opener functioned effectively.
+            <p> In this group project, we were tasked with designing and modeling a bottle opener while taking into account the technical constraints of the chosen manufacturing process, in our case, Selective Laser Melting (SLM). Our objectives were to minimize weight while maintaining optimal strength, and of course, to ensure the bottle opener functioned effectively. We modeled the bottle opener in SolidWorks and went through several iterations, applying topological optimization to improve performance and material efficiency. Once the design was finalized, we 3D printed the bottle opener using SLM. After printing, we conducted a series of laboratory tests to verify that the final product met all the requirements outlined in the project specifications.</p>
 
-We modeled the bottle opener in SolidWorks and went through several iterations, applying topological optimization to improve performance and material efficiency. Once the design was finalized, we 3D printed the bottle opener using SLM. After printing, we conducted a series of laboratory tests to verify that the final product met all the requirements outlined in the project specifications.</p>
 <div class="model-container">
   <div class="project-row">
-  <div class="images">
-    <img src="Stress.png" alt="Bottle opener view 1">
-    <img src="Topo.png" alt="Bottle opener view 2">
-  </div>
+    <div class="images">
+      <img src="Stress.png" alt="Bottle opener view 1">
+      <img src="Topo.png" alt="Bottle opener view 2">
+    </div>
 
-  <div class="text-side">
-  <ul>
-    <li>Applied force constraints on relevant surfaces to simulate real-world conditions</li>
-    <li>Performed meshing and structural simulations in SolidWorks — analyzed displacement, stress, and deformation results</li>
-    <li>Conducted topology optimization to minimize mass while maintaining strength</li>
-    <li>Iteratively modified the bottle opener design based on simulation feedback until achieving the final optimized model</li>
-  </ul>
-</div>
+    <div class="text-side">
+      <ul>
+        <li>Applied force constraints on relevant surfaces to simulate real-world conditions</li>
+        <li>Performed meshing and structural simulations in SolidWorks — analyzed displacement, stress, and deformation results</li>
+        <li>Conducted topology optimization to minimize mass while maintaining strength</li>
+        <li>Iteratively modified the bottle opener design based on simulation feedback until achieving the final optimized model</li>
+      </ul>
+    </div>
 
-  <div class="model">
-    <model-viewer
+    <div class="model">
+      <model-viewer
       src="bottle_opener_v2.glb"
       alt="3D model"
       exposure="1"
@@ -458,44 +515,87 @@ We modeled the bottle opener in SolidWorks and went through several iterations, 
       auto-rotate
       shadow-intensity="1"
       style="background-color: transparent;">
-    </model-viewer>
+      </model-viewer>
+    </div>
+  </div>
+</div>
+
+<div class="model-container">
+  <div class="project-row">
+    <div class="images">
+      <img src="V2_bottle.png" alt="Bottle opener V2">
+      <img src="Labo_Bottle.png" alt="Bottle opener Graph">
+      <img src="Graph_Bottle.png" alt="Bottle opener Graph">
+    </div>
+
+    <div class="text-side">
+      <ul>
+        <li>Developed and compared multiple design concepts, selecting the one that minimized mass despite slightly lower strength.</li>
+        <li>Conducted laboratory tests to obtain the Force–Displacement curve.</li>
+        <li>Interpreted the different stages of material deformation based on experimental data.</li>
+        <li>Analyzed the microstructure to correlate mechanical behavior with material characteristics.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 0px; margin-top:40px;"> 
+  <h3>
+    • Process Selection
+  </h3>
+    <p> In this project, we aimed to identify the most suitable manufacturing process for wind turbine blades using the Granta EduPack software.</p></div>
+    <p> We first defined the blade’s primary function: to efficiently absorb the wind’s kinetic energy to drive the rotor, while ensuring no profile distortion during production to maintain aerodynamic efficiency. Additionally, surface roughness had to be minimized to reduce turbulence.</p>
+</div>
+
+<div class="model-container">
+  <div class="project-row">
+    <div class="images">
+      <img src="blade.png" alt="Bottle opener V5">
+    </div>
+    <div class="text-side">
+      <ul>
+        <li>Conducted a functional analysis in accordance with the IEC 61400-23 standard to identify key design and process constraints.</li>
+        <li>Modeled and detailed the blade geometry through technical drawings to support process evaluation.</li>
+        <li>Considered carbon footprint and environmental impact requirements when comparing processes.</li>
+        <li>Followed recommendations from the <em>Journal of Wind Engineering and Industrial Aerodynamics</em> to ensure best practices and performance optimization.</li></ul>
+    </div>
+  </div>
+</div>
+
+<div class="model-container">
+  <div class="project-row">
+    <div class="text-side">
+      <ul>
+         <li>Specifications: Solid 3D , Primary shaping with surface roughness ~3 µm.</li>
+        <li>Potential processes considered: RTM, RIM, High Pressure RTM, Wet Press Molding.</li>
+        <li>Best compromise – RTM: Low cost, excellent surface finish, minimal defects, high material conversion rate, allows complex shapes, closed mold reduces worker chemical exposure.</li>
+        <li>Limitation: Largest carbon footprint among processes, though negligible compared to the material’s footprint.</li>
+      </ul>
+    </div>
+
+    <div class="gallery">
+      <img src="graphblade1.png" alt="Graph Blade 1">
+      <img src="graphblade3.png" alt="Graph Blade 2">
+      <img src="graphblade4.png" alt="Graph Blade 3">
+      <img src="graphblade5.png" alt="Graph Blade 4">
+    </div>
+
     
   </div>
 </div>
-</div>
-<div class="model-container">
-  <div class="project-row">
-  <div class="images">
-    <img src="V2_bottle.png" alt="Bottle opener V2">
-    <img src="Labo_Bottle.png" alt="Bottle opener Graph">
-    <img src="Graph_Bottle.png" alt="Bottle opener Graph">
-  </div>
 
-  <div class="text-side">
-  <ul>
-    <li>Developed and compared multiple design concepts, selecting the one that minimized mass despite slightly lower strength.</li>
-    <li>Conducted laboratory tests to obtain the Force–Displacement curve.</li>
-    <li>Interpreted the different stages of material deformation based on experimental data.</li>
-    <li>Analyzed the microstructure to correlate mechanical behavior with material characteristics.</li>
-  </ul>
-</div>
-
-</div>
-</div>
-<div style="margin: 0px; margin-top:40px;"> <h3>
-              • Process Selection
-    </h3>
-    <p> Rest of this page is still under development...</p></div>
 </section>
-      <div style="text-align:center; margin-top:40px;">
-        <a href="index.html" class="go-home">Go back to Home</a>
-      </div>
+  <div style="text-align:center; margin-top:40px;">
+    <a href="index.html" class="go-home">Go back to Home</a>
+  </div>
 </main>
-
     <footer>© <span id="year"></span> François Vansnick — Portfolio</footer>
   </div>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+   <div id="img-lightbox">
+  <img src="" alt="Zoomed image">
+  <span id="img-lightbox-close">&times;</span>
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -557,7 +657,32 @@ We modeled the bottle opener in SolidWorks and went through several iterations, 
     }
     });
 
+    // Lightbox pour mini-galerie
+const galleryImages = document.querySelectorAll('.gallery img');
+const imgLightbox = document.getElementById('img-lightbox');
+const imgLightboxImg = imgLightbox.querySelector('img');
+const imgLightboxClose = document.getElementById('img-lightbox-close');
+
+galleryImages.forEach(img => {
+  img.addEventListener('click', () => {
+    imgLightboxImg.src = img.src;
+    imgLightbox.classList.add('active');
+  });
+});
+
+imgLightboxClose.addEventListener('click', () => {
+  imgLightbox.classList.remove('active');
+});
+
+imgLightbox.addEventListener('click', (e) => {
+  if (e.target === imgLightbox) {
+    imgLightbox.classList.remove('active');
+  }
+});
+
     updateSkills();
   </script>
+ 
+</div>
 </body>
 </html>
