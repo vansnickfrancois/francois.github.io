@@ -1,150 +1,665 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Advanced Manufacturing Technologies</title>
-<meta name="description" content="Page en développement">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0f1724;
-  --muted:#9aa6b2;
-  --accent:#0ea5a1;
-  --radius:14px;
-  color-scheme: dark;
-}
-*{box-sizing:border-box;scroll-behavior:smooth}
-html,body{ height:100%; min-height: 100%; }
-body{
-    height: 100%;
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, var(--muted) 0%, #071027 100%);
-      background-size: cover;
-      background-attachment: fixed;
-      color: #e6eef6;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Portfolio — François Vansnick</title>
+  <meta name="description" content="Portfolio personnel — projets, compétences, éducation et contact">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root{
+      --bg:#0f1724;
+      --muted:#9aa6b2;
+      --accent:#0ea5a1;
+      --radius:14px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    html,body{
+        height:100%;
+        min-height: 100%;
+    }
+    .anim-container {
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-      padding: 32px;
-}
-.container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 1100px;
-  margin: 0 auto;
-  background:linear-gradient(180deg,var(--bg) 0%, #071027 100%);
-  border-radius: var(--radius);
-  padding: 32px;
-  color:#e6eef6;
-}
-h1 {
-  font-size:48px;
-  margin-bottom:12px;
-}
-p {
-  color:var(--muted);
-  font-size:18px;
-}
-.model-container {
-  margin-top:40px;
-  display:flex;
-  justify-content:center;
-}
-model-viewer {
-  width: 100%;
-  max-width: 600px;
-  aspect-ratio: 4 / 3; /* adapte la hauteur automatiquement */
-  border-radius: var(--radius);
-  background: transparent;
-}
-footer{
-  margin-top:auto;
-  color:var(--muted);
-  font-size:13px;
-  text-align:center;
-  padding:28px 0;
-}
-.message-box {
+      gap: 16px;
+      flex-wrap: wrap; /* ✅ pour éviter le débordement sur petits écrans */
+    }
+
+    .anim-container img,
+    .anim-container video {
+      height: 280px; /* ✅ taille uniforme et raisonnable */
+      width: auto;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+      background: transparent;
+      max-width: 100%;
+    }
+    body{
+        display: flex;
+        flex-direction: column;
+        margin:0;
+        font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+        background:linear-gradient(180deg, var(--accent) 0%,var(--bg) 100%);
+        background-size: cover;
+        background-attachment: fixed;
+        color:#e6eef6;
+        -webkit-font-smoothing:antialiased;
+        line-height:1.5;
+        padding:32px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 420px; /* limite la largeur pour ne pas casser le layout */
+      margin-top: 12px;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 4/3; /* carré */
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+    }
+
+    /* Lightbox pour agrandir les images de la galerie */
+    #img-lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #img-lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #img-lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+
+    #img-lightbox span {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
+    .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: 1600px;
+        margin: 0 auto;
+        background: var(--bg); /* ajoute un fond */
+        border-radius: var(--radius);
+        padding: 32px;
+        background:linear-gradient(180deg,var(--bg) 0%, #071027 100%);
+        color:#e6eef6;
+    }
+
+    footer {
+        margin-top: auto;
+    }
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:36px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021018}
+    nav a{color:var(--bg);text-decoration:none;margin-left:18px;font-weight:600;padding:6px 12px;border-radius:8px;transition:background 0.3s}
+    nav a:hover, nav a.active{background:rgba(255,255,255,0.1);color:#fff}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center;margin-bottom:56px;position: relative;}
+    .hero .copy h1{font-size:48px;margin:0 0 12px 0;line-height:1.1}
+    .eyebrow{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:1px;margin-bottom:10px}
+    .hero p{color:var(--muted);margin:0 0 22px 0}
+    .cta{display:inline-block;padding:12px 18px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#34d399);color:#022024;font-weight:700;text-decoration:none}
+
+    /* Photo dans le header */
+    .profile-pic {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.1);
+    }
+
+    /* Lightbox (agrandissement) */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      background: #0f1724;
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;              /* ✅ image + texte côte à côte */
+      flex-direction: row;
+      align-items: center;        /* centre verticalement */
+      gap: 24px;                  /* espace entre l'image et le texte */
+      max-width: 800px;
+      width: 90%;
+      color: #fff;
+    }
+
+    .lightbox-content img {
+      width: 300px;
+      height: 300px;
+      border-radius: 14px;
+      object-fit: cover;
+    }
+
+    .lightbox-text {
+      display: flex;
+      flex-direction: column;     /* ✅ texte en colonne */
+      gap: 8px;
+    }
+
+    .lightbox-text h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .lightbox-text h2 {
+      margin: 0;
+      font-size: 16px;
+      color: #9aa6b2; /* gris clair comme ton thème */
+    }
+
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Sections */
+    section{margin-bottom:60px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease, transform 0.6s ease}
+    section.visible{opacity:1;transform:translateY(0)}
+
+    /* Education */
+    .categorie {
+      margin-bottom: 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .categorie h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .course-description {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .categorie-details {
+      display: none;
+      color: var(--muted);
+      margin-top: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .categorie.active .categorie-details {
+      display: block;
+    }
+
+    .categorie .toggle {
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .course-details.active {
+      display: block;
+    }
+
+    .course-details .toggle {
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .course-details.active .toggle {
+      transform: rotate(180deg);
+    }
+
+    .categorie-details {
+      display: none;
+      padding-left: 16px;
+    }
+
+    .categorie.active > .categorie-details {
+      display: block;
+    }
+
+    .course-details {
+      display: none;
+      padding-left: 16px;
+    }
+    .project-row {
+      display: flex;
+      align-items: center;         /* ✅ aligne tout sur la même hauteur */
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 40px;
+      flex-wrap: wrap;             /* ✅ évite que ça déborde sur petits écrans */
+    }
+
+
+    .project-row .images {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+    }
+
+    .project-row .images img {
+      height: 300px;
+      width: auto;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .project-row .text-side {
+      flex: 1;
+      max-width: 300px;
+      color: #e6eef6;
+      font-size: 14px;
+    }
+
+    .project-row .text-side ul {
+      margin: 8px 0 0 16px;
+      padding: 0;
+    }
+
+    .project-row .model {
+      flex-shrink: 0;
+    }
+
+    .project-row model-viewer {
+      width: 260px;
+      height: 200px;
+      border-radius: 14px;
+      background: transparent;
+    }
+
+    .course.active > .course-details {
+    display: block;
+    }
+
+    .toggle {
+    float: right;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    }
+
+    .active > h3 .toggle,
+    .active > h4 .toggle {
+    transform: rotate(180deg);
+    }
+    
+    .toggle::after {
+    content: "+"; /* affichage par défaut */
+    display: inline-block;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    }
+
+    .categorie.active > h3 .toggle::after,
+    .course.active > h4 .toggle::after {
+    content: "-"; /* devient un moins */
+    font-weight: bold;
+    transform: rotate(180deg); /* pivot */
+    }
+
+    .message-box {
       background: linear-gradient(180deg, var(--bg) 0%, #071027 100%);
       padding: 40px;
       border-radius: var(--radius);
       box-shadow: 0px 4px 20px rgba(0,0,0,0.5);
-}
-h1 {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 20px;
-}
-p {
-      font-size: 18px;
-      color: var(--muted);
-}
-a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: linear-gradient(90deg, var(--accent), #34d399);
-      color: #022024;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: background 0.3s ease;
+    } 
+    .see-more {
+    color: var(--accent); /* couleur différente */
+    font-weight: bold; 
+    text-decoration: underline;
+    transition: color 0.3s, transform 0.3s;
     }
-    a:hover {
-      background: linear-gradient(90deg, #34d399, var(--accent));
+    .model-container {
+      margin-top:40px;
+      display:flex;
+      justify-content:center;
     }
+    model-viewer {
+      width: 100%;
+      max-width: 600px;
+      aspect-ratio: 4 / 3; /* adapte la hauteur automatiquement */
+      border-radius: var(--radius);
+      background: transparent;
+    }
+
+    .image-row {
+      display: flex;
+      flex-direction: row;         /* place les images côte à côte */
+      gap: 16px;
+    }
+
+    .image-row img {
+      height: 300px;               /* fixe une hauteur identique aux 3 éléments */         /* garde la proportion */
+      object-fit: cover;           /* rogne pour remplir proprement */
+      border-radius: 14px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .equation {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 6px;
+      margin: 18px 0;
+      font-family: "Segoe UI Symbol", "Times New Roman", serif;
+      overflow-x: auto;
+    }
+
+    a.go-home {
+      display:inline-block;
+      padding:14px 28px;
+      background:linear-gradient(90deg, var(--accent), #34d399);
+      color:#022024;
+      font-weight:700;
+      font-size:16px;
+      text-decoration:none;
+      border-radius:10px;
+      transition:background 0.3s ease, transform 0.2s ease;
+    }
+
+    a.go-home:hover {
+      background:linear-gradient(90deg, #34d399, var(--accent));
+      transform:translateY(-2px);
+    }
+
+    .see-more:hover {
+    color: #34d399; /* couleur différente au survol */
+    transform: scale(1.1); /* grossit légèrement */
+    }
+
+    ul li {
+    margin-bottom: 16px; /* espace entre les éléments */
+    line-height: 1.6;
+    }
+
+    ul li strong {
+    font-weight: bold;
+    }
+
+    
+    footer{color:var(--muted);font-size:13px;text-align:center;padding:28px 0}
 
     /* Responsive */
     @media (max-width:980px){.hero{grid-template-columns:1fr;}}
     @media (max-width:640px){body{padding:18px}.hero .copy h1{font-size:28px}}
-</style>
+  </style>
+
 </head>
-<body>
-    <div class="container">
-      <header style="text-align:center;">
-        <h1>Advanced Manufacturing Technologies</h1>
-      </header>  
-  
-      <div class="message-box">
-        <h1>⚠️ Oops</h1>
-        <p>Sorry, this page is still under development. Please check back later.</p>
-  
-        <div class="model-container">
-          <model-viewer
-            src="Marteau.glb"
-            alt="3D model"
-            exposure="1" 
-            camera-controls 
-            auto-rotate 
-            shadow-intensity="1"
-            style="background-color: transparent;">
-          </model-viewer>
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+        <img src="avatar.png" alt="François Vansnick">
+        <div class="lightbox-text">
+            <h1>yep, that's me or rather an avatar of me</h1>
+            <h2>ok I admit, this one comes from ChatGPT</h2>
         </div>
-  
-        <a href="index.html">Go back to Home</a>
-      </div>
-  
-      <footer>© <span id="year"></span> François Vansnick</footer>
+        </div>
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
     </div>
+<body>
   
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-  </body>
-  
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+    <header>
+      <div class="brand">
+        <div class="logo">
+            <img src="avatar.png" alt="François Vansnick" class="profile-pic" />
+          </div>
+        <div>
+          <div style="font-weight:700">François Vansnick</div>
+          <div class="muted" style="font-size:13px">Mechanical civil engineer</div>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+    <main>
+      <section class="hero">
+        <div class="copy">
+          <h1>Biomechanics</h1>
+          <p>This course explored the fundamentals of the structure, function, and biological performance of major biomechanical systems. Through both theoretical and practical approaches, we examined how physical principles apply to living systems, providing a solid foundation for understanding human movement and physiological mechanics. </p>
+          <p>We studied : </p>
+          <ul>
+            <li>Musculoskeletal Biomechanics: How bones, muscles, and joints produce and control movement.</li>
+            <li>Cardiovascular Biomechanics: How blood flows through the heart and vessels, and how pressure and resistance are regulated.</li>
+            <li>Respiratory Biomechanics: How the lungs and airways function during breathing.</li>
+            <li>Analytical and Computational Modeling: How to use equations and computer models to study and simulate these systems.</li>
+          </ul>
+          <p>During the semester, we also worked on a project where we applied these biomechanical concepts to analyze and model a biological system.</p>
+      </section>
+      <div class="copy">
+        <h2>Project : Mechanical Simulation of Scaffolds for Bone Regeneration</h2>
+        <div style="margin-top: 50px;">
+          <h3> Part 1: Experimental characterization techniques and on analytical solutions of biomechanical questions</h3>
+          <div>
+            <p>Objective: Analyze and compare the microstructural and biomechanical properties of different metallic scaffolds in order to determine which design offers the best balance between mechanical strength and biological adaptability.</p>
+            <p>Using 3D models of metallic scaffolds obtained from X-ray tomography, we analyzed their microstructure with the CTan software. This allowed us to extract quantitative data such as surface-to-volume ratio, strut thickness, and other structural parameters.
+            We then used GraphPad Prism to perform a statistical analysis, comparing and generalizing the properties of the scaffolds according to their type.
+            Finally, we wrote an abstract summarizing our findings and discussed which scaffold design showed the best biomechanical compatibility, in terms of mechanical resistance, adaptability to biological tissues, and potential influence on the bone remodeling process (osteogenesis and osteointegration).</p>
+            <a class="cta" href="Mini-project_1.pdf" download="AbstractMetallicScaffold.Pdf"> Abstract : HOW SCAFFOLD DESIGN INFLUENCES BONE REGENERATION </a>
+          </div>
+        </div>
+        <div style="margin-top: 50px;">
+          <h3> Part 2: Numerical Simulation of Scaffold Compression Tests</h3>
+          <div>
+            <p>Objective: Use numerical tools to obtain a more precise evaluation of the mechanical properties of different metallic scaffolds and to compare the results with the analytical study.</p>
+            <p>
+              We used <strong>Abaqus</strong> software to simulate compression tests on the 3D scaffold models.
+              This allowed us to deepen our understanding of numerical modeling and to determine the
+              mechanical response of each scaffold type under load.
+            </p>
+            <div class="anim-container">
+              <img src="D1S3.png" alt="Bottle opener view 1">
+              <video class="anim-video" autoplay loop muted playsinline>
+                <source src="D1S3_movie.webm" type="video/webm; codecs=vp9">
+              </video>
+            </div>
+            <div class="model-container">
+              <div class="anim-container">
+                <img src="D2S2.png" alt="Bottle opener view 1">
+                <video class="anim-video" autoplay loop muted playsinline>
+                  <source src="D2S2_movie.webm" type="video/webm; codecs=vp9">
+                </video>
+              </div>
+            </div>
+            <p>
+              The stress–strain data obtained from the simulations were then plotted using <strong>Python</strong>,
+              and the Young’s modulus (<em>E<sub>xx</sub></em>) was calculated from the relation:
+            </p>
+
+            <div class="equation">
+              <!-- inline LaTeX uses \( ... \), displayed equation uses \[ ... \] -->
+              \[
+                E_{xx} \;=\; \frac{\sigma_{xx}}{\varepsilon_{xx}}
+                \;=\; \frac{F/A}{\Delta l / l}
+              \]
+            </div>
+
+            <p class="note">
+              Where \(F\) is the applied force, \(A\) the cross-sectional area, \(\ l \) the original length,
+              and \(\Delta l \) the change in length (so \(\varepsilon_{xx}=\Delta l / l\)).
+            </p>
+
+            <p>
+              Finally, we compared the analytical and numerical results, analyzed the sources of error, and discussed
+              possible mechanical and biological improvements to enhance scaffold performance — such as <strong>surface treatments</strong>
+              or <strong>heat treatments</strong> to improve biocompatibility and mechanical strength.
+            </p>
+          </div>
+        </div>
+      </div>
+ 
+</section>
+  <div style="text-align:center; margin-top:40px;">
+    <a href="index.html" class="go-home">Go back to Home</a>
+  </div>
+</main>
+    <footer>© <span id="year"></span> François Vansnick — Portfolio</footer>
+  </div>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+   <div id="img-lightbox">
+  <img src="" alt="Zoomed image">
+  <span id="img-lightbox-close">&times;</span>
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth section reveal on scroll
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {threshold:0.2});
+    sections.forEach(s=>observer.observe(s));
+
+    // Project list toggle
+    const buttons = document.querySelectorAll('.project-list button');
+    const content = document.querySelector('.project-content');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        content.textContent = `Projet sélectionné: ${btn.textContent}`;
+      });
+    });
+
+    // Education accordion
+    document.querySelectorAll('.categorie > h3').forEach(header => {
+    header.addEventListener('click', () => {
+            const category = header.parentElement;
+            category.classList.toggle('active');
+        });
+    });
+
+    // Cours
+    document.querySelectorAll('.course > h4').forEach(header => {
+    header.addEventListener('click', (e) => {
+            e.stopPropagation(); // évite de fermer la catégorie parent
+            const course = header.parentElement;
+            course.classList.toggle('active');
+        });
+    });
+
+    const profilePic = document.querySelector('.profile-pic');
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    profilePic.addEventListener('click', () => {
+    lightbox.classList.add('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    });
+
+    lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+    }
+    });
+
+    // Lightbox pour mini-galerie
+const galleryImages = document.querySelectorAll('.gallery img');
+const imgLightbox = document.getElementById('img-lightbox');
+const imgLightboxImg = imgLightbox.querySelector('img');
+const imgLightboxClose = document.getElementById('img-lightbox-close');
+
+galleryImages.forEach(img => {
+  img.addEventListener('click', () => {
+    imgLightboxImg.src = img.src;
+    imgLightbox.classList.add('active');
+  });
+});
+
+imgLightboxClose.addEventListener('click', () => {
+  imgLightbox.classList.remove('active');
+});
+
+imgLightbox.addEventListener('click', (e) => {
+  if (e.target === imgLightbox) {
+    imgLightbox.classList.remove('active');
+  }
+});
+
+    updateSkills();
+  </script>
+ 
+</div>
 </body>
 </html>
